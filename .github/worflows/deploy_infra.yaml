@@ -21,6 +21,16 @@ jobs:
           key: ${{ secrets.VULTR_INSTANCE_KEY }}
           script: |
             cd cloudwatch-mock
+            if [ ! -d ".git" ]; then
+              git clone ${{ github.server_url }}/${{ github.repository }} .
+            else
+              git pull
+            fi
+            terraform init
+            terraform plan -out=plan-${{ github.run_number }}.out
+            terraform show -json plan-${{ github.run_number }}.out > plan-${{ github.run_number }}.json
+            #terraform apply -auto-approve plan-${{ github.run_number }}.out 
+            cd cloudwatch-mock
             git pull
             terraform init
             terraform plan -out=plan-${{ github.run_number }}.out
