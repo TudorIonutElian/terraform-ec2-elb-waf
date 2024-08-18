@@ -1,33 +1,18 @@
 /**********************************************************
-    # Data Source to Get Latest AL 2023 AMI
+  # Added data source to filter the ami called iris_tf_demo_ec2_ami_filter
 **********************************************************/
-data "aws_ami" "latest_al_2023_ami" {
-    most_recent = true
-    owners      = ["amazon"]
 
-    filter {
-        name   = "name"
-        values = ["amzn2-ami-hvm-2.0.????????-x86_64-gp2"]
-    }
+data "aws_ami" "ec2_ami_filter" {
+  owners      = ["amazon"]
+  most_recent = true
 
-    filter {
-        name   = "virtualization-type"
-        values = ["hvm"]
-    }
+  filter {
+    name   = "name"
+    values = ["${var.startsWith}-*-${var.endsWith}"]
+  }
 
-    filter {
-        name   = "root-device-type"
-        values = ["ebs"]
-    }
-
-    filter {
-        name   = "architecture"
-        values = ["x86_64"]
-    }
-
-    filter {
-        name   = "creation-date"
-        values = ["2023*"]
-    }
+  filter {
+    name   = "architecture"
+    values = ["${var.architecture}"]
+  }
 }
-
