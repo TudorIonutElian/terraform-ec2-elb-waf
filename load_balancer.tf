@@ -6,13 +6,7 @@ resource "aws_lb" "elb_load_balancer" {
   subnets            = [ aws_subnet.elb_project_subnet_2.id, aws_subnet.elb_project_subnet_1.id ]
 
   enable_deletion_protection = true
-
-  access_logs {
-    bucket  = aws_s3_bucket.elb_project_s3bucket.id
-    prefix  = "elb-load-balancer"
-    enabled = true
-  }
-
+  
   tags = {
     Name = "elb_project"
   }
