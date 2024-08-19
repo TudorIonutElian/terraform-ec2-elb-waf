@@ -41,13 +41,12 @@ resource "aws_lb_target_group" "load_balancer_target_group" {
 
 
 resource "aws_lb_target_group_attachment" "first_instance" {
-  target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
-  target_id        = aws_instance.demo_alb_waf_ec2_instance[0].id
-  port             = 80
-}
+  for_each = {
+    for k, v in aws_instance.demo_alb_waf_ec2_instance :
+    k => v
+  }
 
-resource "aws_lb_target_group_attachment" "second_instance" {
   target_group_arn = aws_lb_target_group.load_balancer_target_group.arn
-  target_id        = aws_instance.demo_alb_waf_ec2_instance[1].id
+  target_id        = each.value.id
   port             = 80
 }
