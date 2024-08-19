@@ -5,7 +5,6 @@ resource "aws_lb" "elb_load_balancer" {
   security_groups    = [aws_security_group.elb_project_sg.id]
   subnets            = [aws_subnet.elb_project_subnet_2.id, aws_subnet.elb_project_subnet_1.id]
 
-  enable_deletion_protection       = true
   enable_cross_zone_load_balancing = true
 
   tags = {
