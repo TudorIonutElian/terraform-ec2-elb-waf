@@ -1,11 +1,11 @@
 resource "aws_s3_bucket" "elb_project_s3bucket" {
-    bucket = "elb-project-bucket-load-balancer-ec2-logs"
+  bucket = "elb-project-bucket-load-balancer-ec2-logs"
 }
 
 resource "aws_s3_bucket_policy" "elb_project_s3bucket_policy" {
-    bucket = aws_s3_bucket.elb_project_s3bucket.id
+  bucket = aws_s3_bucket.elb_project_s3bucket.id
 
-    policy = <<EOF
+  policy = <<EOF
     {
         "Version": "2012-10-17",
         "Statement": [
